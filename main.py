@@ -1,3 +1,5 @@
+from functools import reduce
+
 #zadanie1
 print('zadanie 1')
 
@@ -70,8 +72,49 @@ def apply(data):
 
 def applyToList(functions, args):
     for f, n in zip(functions, args):
-        print(f(*n) if isinstance(n, tuple) else f(v))
+        print(f(*n) if isinstance(n, tuple) else f(n))
 
+applyToList([square, plusFive, addNumbers], [5, 10, (10, 15)])
 
 
 #zadanie8
+print('zadanie 8')
+squaresList = [x**2 for x in range(1, 11)]
+
+wordsList = ["gruszka", "banan", "jabłko", "kiwi"]
+wordLengths = [len(word) for word in wordsList]
+
+print("Liczby kwadratowe", squaresList)
+print("Długość słów:", wordLengths)
+
+#zadanie9
+print('zadanie 9')
+data = [1, 8, 3, 4, 5]
+def max(data):
+    return reduce(lambda x, y: x if x > y else y, data)
+
+def average(data):
+    sum = reduce(lambda x, y: x + y, data)
+    return sum / len(data)
+
+print("największa liczba:", max(data))
+print("srednia", average(data))
+
+#zadanie10
+print("zadanie 10")
+def fibonacci():
+    a, b = 0, 1
+    while True:
+        yield a
+        a, b = b, a + b
+
+def fileReader(path):
+    with open(path) as file:
+        for line in file:
+            print(line)
+
+data = fibonacci()
+for i in range(100):
+    print(next(data))
+
+#fileReader("sampletext.txt")
