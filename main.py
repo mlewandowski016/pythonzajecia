@@ -1,120 +1,54 @@
-from functools import reduce
+from itertools import product
 
-#zadanie1
-print('zadanie 1')
+#zadanie 1
+list1 = ['A', 'B']
+list2 = ['C', 'D']
+print(list(product(list1, list2)))
 
-print(hex(2024))
+#zadanie 2
+def varianter(list1):
+    print(list(product(list1,list1)))
 
-x = -32
-print(abs(x))
+varianter(list1)
 
-data = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
-print(max(data))
-
-print(pow(x, 2))
-
-print(ord('a'))
-
-#zadanie2
-print('zadanie 2')
-from zadanie2 import *
-welcome()
-
-#zadanie3
-print('zadanie 3')
-def fun1():
-    x = 12
-    print("wartość x wewnątrz funkcji: ",x)
-
-fun1()
-print("wartość x poza funkcją: ",x)
-
-#zadanie4
-print('zadanie4')
-def funz4_a():
-    return 10
-def funz4_b(funz4_a):
-    print("Funkcja funz4_a zwaraca za pomocą return wartość: ", funz4_a())
-funz4_b(funz4_a)
-
-#zadanie5
-print('zadanie5')
-numbers = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
-def isEven(list):
-    for i in list:
-        if (i % 2 == 0):
-            print(i)
-isEven(numbers)
-
-x = lambda a, b : a * b
-print('Pole kwadratu:', x(5, 6))
-
-#zadanie6
-print('zadanie 6')
-def start_a(name):
-    return list(filter(lambda x: x[0] == 'A', name))
-def pow_list(data):
-    return list(map(lambda x: x*x, data))
-
-print(start_a(['Adam', 'Mateusz', 'Adrian']))
-print(pow_list([1, 2, 3, 4, 5]))
-
-#zadanie7
-print('zadanie 7')
-square = lambda number: number * number
-plusFive = lambda number: number + 5
-addNumbers = lambda a,b: a + b
-
-def apply(data):
-    data = map(square, data)
-    data = map(plusFive, data)
-    return list(data)
-
-def applyToList(functions, args):
-    for f, n in zip(functions, args):
-        print(f(*n) if isinstance(n, tuple) else f(n))
-
-applyToList([square, plusFive, addNumbers], [5, 10, (10, 15)])
-
-
-#zadanie8
-print('zadanie 8')
-squaresList = [x**2 for x in range(1, 11)]
-
-wordsList = ["gruszka", "banan", "jabłko", "kiwi"]
-wordLengths = [len(word) for word in wordsList]
-
-print("Liczby kwadratowe", squaresList)
-print("Długość słów:", wordLengths)
-
-#zadanie9
-print('zadanie 9')
-data = [1, 8, 3, 4, 5]
-def max(data):
-    return reduce(lambda x, y: x if x > y else y, data)
-
-def average(data):
-    sum = reduce(lambda x, y: x + y, data)
-    return sum / len(data)
-
-print("największa liczba:", max(data))
-print("srednia", average(data))
-
-#zadanie10
-print("zadanie 10")
+#zadanie 3
 def fibonacci():
-    a, b = 0, 1
-    while True:
-        yield a
+    a = 0
+    b = 1
+    for i in range(10):
+        print(b)
         a, b = b, a + b
 
-def fileReader(path):
-    with open(path) as file:
-        for line in file:
-            print(line)
+fibonacci()
 
-data = fibonacci()
-for i in range(100):
-    print(next(data))
+#zadanie 4
+dataA = [1,2,3,4,5,6,7,8,9,10]
 
-#fileReader("sampletext.txt")
+dataB = [pow(x,2) for x in dataA if (sum := pow(x,2) > 10)]
+
+print(dataB)
+
+#zadanie 5
+word = "Kajak"
+
+def isPalindrome(word) : print('this word is palindrome') if word.lower() == word[::-1].lower() else print ('this word is not palindrome')
+
+isPalindrome(word)
+
+#zadanie 6
+def safe_function(func):
+    def errorHandler():
+        try: func()
+        except: print("Error!")
+    return errorHandler()
+
+a = 4
+b = 2
+
+@safe_function
+def func(a, b):
+    sum = a / b
+    return sum
+
+data = func(4, 2)
+print(data)
